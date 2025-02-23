@@ -3,6 +3,7 @@ import "./globals.css";
 import { Suspense } from "react";
 import Providers from "./provider";
 import { ToastContainer } from "react-toastify";
+import Spinner from "@/components/Spinner/Spinner";
 
 export const metadata: Metadata = {
   title: "Template App",
@@ -18,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
-          <Suspense fallback={<label>Loading</label>}>{children}</Suspense>
+          <Suspense fallback={<Spinner />}>{children}</Suspense>
         </Providers>
         <ToastContainer position="bottom-right" autoClose={2000} />
       </body>

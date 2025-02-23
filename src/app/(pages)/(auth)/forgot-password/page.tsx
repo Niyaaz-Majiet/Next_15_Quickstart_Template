@@ -3,7 +3,6 @@
 import InputBox from "@/components/InputBox/InputBox";
 import PageView from "@/components/PageView/PageView";
 import SubmitButton from "@/components/SubmitButton/SubmitButton";
-import { useAppDispatch } from "@/hooks/reduxHooks";
 import { sendResetLink } from "@/services/auth.service";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";

@@ -8,12 +8,12 @@ export default function Home() {
 
   return (
     <PageView>
-      <h1 className="w-fit self-center text-9xl text-blue-600">
-        DASHBOARD HOME PAGE
+      <h1 className="w-min self-center text-9xl text-blue-600">
+        HOME PAGE
       </h1>
 
       {authState.isLoggedIn && (
-        <h1 className="w-fit self-center text-4xl text-blue-600">
+        <h1 className="w-min self-center text-4xl text-blue-600">
           {authState.user} Is Logged In.
         </h1>
       )}

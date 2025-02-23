@@ -1,10 +1,11 @@
 "use client";
 
+import DashboardNavBar from "@/components/DashboardNavBar/DashboardNavBar";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { LOGOUT } from "@/redux/auth";
 import { logout } from "@/services/auth.service";
 import { useRouter } from "next/navigation";
-import { Suspense, useEffect } from "react";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
 
 export default function Layout({
@@ -38,8 +39,8 @@ export default function Layout({
 
   return (
     <div>
-      <button onClick={() => handleLogout()}>LOGOUT</button>
-      <Suspense fallback={<label>Loading</label>}>{children}</Suspense>
+      <DashboardNavBar handleLogout={() => handleLogout()} />
+      {children}
     </div>
   );
 }
