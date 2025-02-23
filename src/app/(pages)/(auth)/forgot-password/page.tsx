@@ -2,13 +2,17 @@
 
 import InputBox from "@/components/InputBox/InputBox";
 import PageView from "@/components/PageView/PageView";
+import Spinner from "@/components/Spinner/Spinner";
 import SubmitButton from "@/components/SubmitButton/SubmitButton";
 import { sendResetLink } from "@/services/auth.service";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 export default function Login() {
+  const [fetching, setFetching] = useState(false);
+
   const router = useRouter();
 
   const form = useForm({ mode: "onBlur" });
@@ -20,7 +24,7 @@ export default function Login() {
 
   const handleSendEmail = async (data: any) => {
     console.log("data", data);
-    
+    !fetching && setFetching(true);
     try {
       const res = await sendResetLink();
       if (res) {
@@ -31,35 +35,41 @@ export default function Login() {
       }
     } catch (error) {
       toast("Error");
+    } finally {
+      setFetching(false);
     }
   };
 
   return (
     <PageView>
-      <InputBox
-        type="text"
-        className=""
-        label="Email"
-        register={register}
-        registerOptions={{
-          required: {
-            message: "Field is required.",
-            value: true,
-          },
-          pattern: {
-            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-            message: "Invalid email address",
-          },
-        }}
-        name="email"
-        errorMessage={errors["email"]?.message?.toString() || undefined}
-      />
+      {fetching && <Spinner />}
+      <form onSubmit={handleSubmit(handleSendEmail)}>
+        <InputBox
+          type="text"
+          className=""
+          label="Email"
+          register={register}
+          registerOptions={{
+            required: {
+              message: "Field is required.",
+              value: true,
+            },
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: "Invalid email address",
+            },
+          }}
+          name="email"
+          errorMessage={errors["email"]?.message?.toString() || undefined}
+        />
 
-      <SubmitButton
-        className=""
-        handleSubmit={handleSubmit(handleSendEmail)}
-        label="Send Email"
-      />
+        <SubmitButton
+          className=""
+          type="submit"
+          handleSubmit={null}
+          label="Send Email"
+        />
+      </form>
     </PageView>
   );
 }
