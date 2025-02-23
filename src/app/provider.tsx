@@ -1,6 +1,6 @@
 "use client";
 import { AppStore, store } from "../redux/store";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Provider } from "react-redux";
 
 export default function Providers({ children }: { children: React.ReactNode }) {

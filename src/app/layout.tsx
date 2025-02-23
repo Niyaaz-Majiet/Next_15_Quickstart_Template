@@ -16,11 +16,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
+      <body>
         <Providers>
           <Suspense fallback={<label>Loading</label>}>{children}</Suspense>
         </Providers>
-        <ToastContainer position="top-right" autoClose={2000} />
+        <ToastContainer position="bottom-right" autoClose={2000} />
       </body>
     </html>
   );

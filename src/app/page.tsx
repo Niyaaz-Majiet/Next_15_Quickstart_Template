@@ -1,54 +1,29 @@
 "use client";
 
-import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
-import { LOGOUT } from "@/redux/auth";
-import { logout } from "@/services/auth.service";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { toast } from "react-toastify";
+import PageView from "@/components/PageView/PageView";
+import { useAppSelector } from "@/hooks/reduxHooks";
 
 export default function Home() {
-  const router = useRouter();
-  const dispatch = useAppDispatch();
   const authState = useAppSelector((state) => state.auth);
 
-  const handleLogout = async () => {
-    try {
-      const res = await logout();
-      if (res) {
-        dispatch(LOGOUT());
-      } else {
-        toast("Error");
-      }
-    } catch (error) {
-      toast("Error");
-    }
-  };
-
-  useEffect(() => {
-    if (!authState.isLoggedIn) {
-      toast("Logging Out");
-      router.push("/login");
-    }
-  }, [authState.isLoggedIn]);
-
   return (
-    <div className="">
-      HOME PAGE
-      <br />
-      {authState.user}
-      <br />
-      <button
-        onClick={() => handleLogout()}
-        style={{
-          color: "white",
-          backgroundColor: "blue",
-          lineHeight: 10,
-          padding: 20,
-        }}
-      >
-        LOGOUT
-      </button>
-    </div>
+    <PageView>
+      <h1 className="w-fit self-center text-9xl text-blue-600">
+        DASHBOARD HOME PAGE
+      </h1>
+
+      {authState.isLoggedIn && (
+        <h1 className="w-fit self-center text-4xl text-blue-600">
+          {authState.user} Is Logged In.
+        </h1>
+      )}
+
+      <div className="w-full p-4 flex flex-row flex-wrap justify-center">
+        <a href="/forgot-password">Forgot Password</a>
+        <a href="/register">Register</a>
+        {!authState.isLoggedIn && <a href="/login">Login</a>}
+        {authState.isLoggedIn && <a href="/dashboard/info">Info</a>}
+      </div>
+    </PageView>
   );
 }
