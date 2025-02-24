@@ -1,13 +1,13 @@
 "use client";
 
-import PageView from "@/components/PageView/PageView";
+import { DynamicPageView } from "@/components/dynamicExports";
 import { useAppSelector } from "@/hooks/reduxHooks";
 
 export default function Home() {
   const authState = useAppSelector((state) => state.auth);
 
   return (
-    <PageView>
+    <DynamicPageView>
       <h1 className="w-min self-center text-9xl text-blue-600">
         HOME PAGE
       </h1>
@@ -24,6 +24,6 @@ export default function Home() {
         {!authState.isLoggedIn && <a href="/login">Login</a>}
         {authState.isLoggedIn && <a href="/dashboard/info">Info</a>}
       </div>
-    </PageView>
+    </DynamicPageView>
   );
 }

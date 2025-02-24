@@ -1,7 +1,7 @@
 "use client";
 
+import { DynamicPageView } from "@/components/dynamicExports";
 import InputBox from "@/components/InputBox/InputBox";
-import PageView from "@/components/PageView/PageView";
 import PasswordInputBox from "@/components/PasswordInputBox/PasswordInputBox";
 import Spinner from "@/components/Spinner/Spinner";
 import SubmitButton from "@/components/SubmitButton/SubmitButton";
@@ -46,7 +46,7 @@ export default function Login() {
   };
 
   return (
-    <PageView>
+    <DynamicPageView>
       {fetching && <Spinner />}
       <form onSubmit={handleSubmit(handleLogin)}>
         <InputBox
@@ -90,6 +90,6 @@ export default function Login() {
         <a href="/forgot-password">Forgot Password</a>
         <a href="/register">Register</a>
       </div>
-    </PageView>
+    </DynamicPageView>
   );
 }

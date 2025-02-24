@@ -1,7 +1,8 @@
 "use client";
 
-import DashboardNavBar from "@/components/DashboardNavBar/DashboardNavBar";
+import { DynamicNavBar } from "@/components/dynamicExports";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
+import useWindowSize from "@/hooks/useWindowSize";
 import { LOGOUT } from "@/redux/auth";
 import { logout } from "@/services/auth.service";
 import { useRouter } from "next/navigation";
@@ -16,6 +17,7 @@ export default function Layout({
   const router = useRouter();
   const authState = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
+  const { size } = useWindowSize();
 
   const handleLogout = async () => {
     try {
@@ -38,9 +40,16 @@ export default function Layout({
   }, [authState.isLoggedIn]);
 
   return (
-    <div>
-      <DashboardNavBar handleLogout={() => handleLogout()} />
-      {children}
+    <div className="h-full w-full">
+      <DynamicNavBar
+        handleLogout={() => handleLogout()}
+        isMobile={size.isMobile ? size.isMobile : false}
+      />
+      <div
+        className={`h-full  ${size.isMobile ? "w-10/12 float-right absolute top-0 right-0 z-0" : "w-full mt-16"}`}
+      >
+        {children}
+      </div>
     </div>
   );
 }

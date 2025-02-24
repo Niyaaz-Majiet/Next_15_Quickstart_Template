@@ -1,7 +1,7 @@
 "use client";
 
+import { DynamicPageView } from "@/components/dynamicExports";
 import InputBox from "@/components/InputBox/InputBox";
-import PageView from "@/components/PageView/PageView";
 import Spinner from "@/components/Spinner/Spinner";
 import SubmitButton from "@/components/SubmitButton/SubmitButton";
 import { sendResetLink } from "@/services/auth.service";
@@ -41,7 +41,7 @@ export default function Login() {
   };
 
   return (
-    <PageView>
+    <DynamicPageView>
       {fetching && <Spinner />}
       <form onSubmit={handleSubmit(handleSendEmail)}>
         <InputBox
@@ -70,6 +70,6 @@ export default function Login() {
           label="Send Email"
         />
       </form>
-    </PageView>
+    </DynamicPageView>
   );
 }
